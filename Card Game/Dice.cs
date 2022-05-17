@@ -8,7 +8,12 @@ namespace Dice_Game
 {
     internal class Dice
     {
-        Random dice = new Random();
+        public Dice(int Dice)
+        {
+            dice = Dice;
+        }
+
+        public int dice { get; set; }
 
         //Generates a dice roll for a 6 sided dice
         public int Dice_Roll_D6()

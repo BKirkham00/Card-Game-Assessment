@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dice_Game
 {
-    //internal class Game : Player
+    //internal class Game : Dice
     //{
-
-
+        
     //}
 }

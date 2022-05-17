@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dice_Game
 {
-    internal class Player : Dice
+    internal class Player
     {
-        private int playerID;
-        private int score;
 
         public Player(int PlayerID,int Score)
         {
@@ -17,8 +15,8 @@ namespace Dice_Game
             score = Score;
         }
 
-        public int PlayerID { get; set; }   
-        public int Score { get; set; }
+        public int playerID { get; set; }   
+        public int score { get; set; }
             
             
 
