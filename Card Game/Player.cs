@@ -22,23 +22,37 @@ namespace Dice_Game
         //Arguments: int
         //Returns: int
         //Checks if an input entered by the user is valid.
-        public int ValidatePlayerInput(int PInput)
+        public int ValidatePlayerInput()
         {
-            try
+            bool valid = false;
+            int input = 0;
+            while (valid == false)
             {
-                if (PInput > 0 && PInput < 2)
+                try
                 {
-                    PInput = PInput;
+                    input = Convert.ToInt32(Console.ReadLine());
                 }
-            }catch (Exception) 
-            {
-                Console.WriteLine("Im sorry, that is not a valid input. Please try again.\nenter 1 for yes 2 for no:");
-                PInput = Console.Read();
+                catch (Exception)
+                {
+                    
+                }
+                finally
+                {
+                    if (input == 1)
+                    {
+                        valid = true;
+                    }
+                    else if (input == 2)
+                    {
+                        valid = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Im sorry, that is not a valid input. Please try again.\nenter 1 for yes 2 for no:");
+                    }
+                }
             }
-            //finally
-            //{
-            return PInput;
-            //}
+            return input;
         }
     }
 }

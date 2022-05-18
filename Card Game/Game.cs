@@ -63,9 +63,9 @@ namespace Dice_Game
                 Console.WriteLine("player " + player.playerID + " would you like to reroll " + Rerolls.Count().ToString() + " dice?");
                 Console.WriteLine("1) yes");
                 Console.WriteLine("2) no");
-                // Takes player input
-                int input = Convert.ToInt32(Console.ReadLine());
-                //player.ValidatePlayerInput(input);
+
+                // Takes player input by calling the ValidatePlayerInput method
+                int input = player.ValidatePlayerInput();
                 Console.WriteLine();
 
                 if (input == 1)
