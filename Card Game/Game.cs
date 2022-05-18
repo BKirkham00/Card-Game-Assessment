@@ -17,11 +17,43 @@ namespace Dice_Game
         {
             // Creates a Dice class
             Dice dice = new Dice(0);
-            // Calls the Dice roll class and gets 5 new Dice
-            List<int> Dices = dice.Dice_Roll_D6();
             
-            
+            // Calls the Dice roll class and gets 5 new Dice. Sorts the list to make logic easier.
+            List<int> DiceList = dice.Dice_Roll_D6();
+            DiceList.Sort();
 
+            // Creates an array to hold the number of times each dice value apears
+            int[] occurances = {0,0,0,0,0,0};
+            // Checks each dice rolled and will adjust the occurances array if it finds a multiple occurance
+            for (int i = 0; i < 5; i++)
+            {
+                int count = DiceList.Count(s => s == i);
+                occurances[i] = count;
+            }
+
+            //testing print of occurance array
+            foreach (int occurance in occurances)
+            { Console.WriteLine(occurance);}
+            Scores(player, occurances);
+        }
+
+        public void Scores(Player player, int[] list)
+        {
+            foreach (int i in list)
+            {
+                if (i == 3)
+                {
+                    player.score += 3;
+                }
+                else if (i == 4)
+                {
+                    player.score += 6;
+                }
+                else if (i == 5)
+                {
+                    player.score += 12;
+                }
+            }
         }
 
         public void Winner(Player player1, Player player2)

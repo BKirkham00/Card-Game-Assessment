@@ -29,6 +29,15 @@ namespace Dice_Game
             return dicelist;
         }
 
+        public List<int> Reroll_D6(List<int> Rerolls)
+        {
+            Random rnd = new Random();
+            foreach (int r in Rerolls)
+            {
+                Rerolls[r] = rnd.Next(1, 7);
+            }
+            return Rerolls;
+        }
     }
 }
 

@@ -17,6 +17,8 @@ namespace Dice_Game
             Game game = new Game(0);
 
             game.Play(Player_1);
+            game.Winner(Player_1, Player_2);
+            
             
             
 
