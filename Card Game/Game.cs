@@ -29,40 +29,87 @@ namespace Dice_Game
         {
             // Creates a Dice class
             Dice dice = new Dice(0);
-            
+
             // Calls the Dice roll class and gets 5 new Dice. Sorts the list to make logic easier.
             List<int> DiceList = dice.Dice_Roll_D6();
             DiceList.Sort();
 
-            // Uses a Foreach Loop to compile the list of integers into one string and displays it to the player
+            // Displays a players dice to them.
+            Console.WriteLine("player " + player.playerID + " You rolled: " + PrintDice(DiceList));
+
+            // Calls Occurances method
+            int[] occurances = Occurances(DiceList);
+
+            // Calls RerollCheck method
+            bool check = RerollCheck(occurances);
+            //Console.WriteLine(check);
+
+            if (check == true)
+            {
+                // Creates a list to store the dice that need rerolling
+                List<int> Rerolls = new List<int>();
+                for(int i = 0; i < 6; i++)
+                {
+                    //testing print of occurance array
+                    
+                    if (occurances[i] == 1)
+                    {
+                        Rerolls.Add(i);
+                    }
+                }
+
+                // Displays a text based menu to the player to allow them to choose
+                // if they want to reroll their remaining dice or not
+                Console.WriteLine("player " + player.playerID + " would you like to reroll " + Rerolls.Count().ToString() + " dice?");
+                Console.WriteLine("1) yes");
+                Console.WriteLine("2) no");
+                // Takes player input
+                int input = Convert.ToInt32(Console.ReadLine());
+                //player.ValidatePlayerInput(input);
+                Console.WriteLine();
+
+                if (input == 1)
+                {
+                    var newdice = dice.Reroll_D6(Rerolls.Count());
+
+                    // Remove all non duplicates from DiceList
+                    DiceList = DiceList.GroupBy(x => x)
+                     .Where(g => g.Count() > 1)
+                     .SelectMany(g => g)
+                     .ToList();
+
+                    // Add all values from newdice to DiceList
+                    foreach (int i in newdice)
+                    {
+                        DiceList.Add(i);
+                    }
+
+                    DiceList.Sort();
+                    Console.WriteLine("player " + player.playerID + " Your new dice are: " + PrintDice(DiceList) + "\n");
+                }
+            }
+            // Calls the score method to tally the scores
+            Scores(player, occurances);
+        }
+
+        ////Method: PrintDice
+        //Arguments: List<int>
+        //Returns: string
+        //method for making a string out of a players dice for display.
+        public string PrintDice(List<int> DiceList)
+        {
             string printDice = "";
             foreach (int Dice in DiceList)
             {
                 printDice += Dice.ToString() + " ";
             }
-            Console.WriteLine(player.playerID + " You rolled: " + printDice);
-
-            // Calls Occurances Function
-            int[] occurances = Occurances(DiceList);
-
-            // Calls RerollCheck Function
-            bool check = RerollCheck(occurances);
-            Console.WriteLine(check);
-
-
-            //testing print of occurance array
-            //foreach (int occurance in occurances)
-            //{ Console.WriteLine(occurance);}
-
-            // Calls the score function to tally the scores
-            Scores(player, occurances);
+            return printDice;
         }
-
 
         ////Method: Occurances
         //Arguments: List<int>
         //Returns: array<int>
-        //Function for finding the number of occurances of a dice value in the list.
+        //method for finding the number of occurances of a dice value in the list.
         public int[] Occurances(List<int> list)
         {
             // Creates an array to hold the number of times each dice value apears
@@ -84,14 +131,14 @@ namespace Dice_Game
         ////Method: RerollCheck
         //Arguments: array<int>
         //Returns: bool
-        //Function for Checking if a player qualifies for a reroll, assumes the case to be true and will set to
+        //method for Checking if a player qualifies for a reroll, assumes the case to be true and will set to
         //false if it finds a contradicting case.
         public bool RerollCheck(int[] list)
         {
             bool check = true;
 
             // Looks at each item in list to try and find a contradicting case.
-            foreach (int item in list) 
+            foreach (int item in list)
             {
                 if (item >= 3)
                 {
@@ -106,7 +153,7 @@ namespace Dice_Game
         ////Method: Scores
         //Arguments: class, array<int>
         //Returns: void
-        //Function for assigning scores to the rolls.
+        //method for assigning scores to the rolls.
         public void Scores(Player player, int[] list)
         {
             // Foreach loop looks at each item in the occura
@@ -130,7 +177,7 @@ namespace Dice_Game
         ////Method: Winner
         //Arguments: Player, Player
         //Returns: 
-        //Function for Checking who won by reaching 50 points first
+        //method for Checking who won by reaching 50 points first
         public void Winner(Player player1, Player player2)
         {
             // Tells the user the scores
