@@ -15,6 +15,9 @@ namespace Dice_Game
 
         public int dice { get; set; }
 
+        ////Method: Dice_Roll_D6
+        //Arguments: Void
+        //Returns: List<int>
         //Generates a dice roll for a 6 sided dice and then adds 5 of them to a list.
         public List<int> Dice_Roll_D6()
         {
@@ -29,6 +32,10 @@ namespace Dice_Game
             return dicelist;
         }
 
+        ////Method: Reroll_D6
+        //Arguments: int
+        //Returns: List<int>
+        //Generates a number of new dice equal to the number of rerolls requested.
         public List<int> Reroll_D6(int RerollCount)
         {
             Random rnd = new Random();
