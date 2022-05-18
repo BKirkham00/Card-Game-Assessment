@@ -15,13 +15,18 @@ namespace Dice_Game
 
         public int dice { get; set; }
 
-        //Generates a dice roll for a 6 sided dice
-        public int Dice_Roll_D6()
+        //Generates a dice roll for a 6 sided dice and then adds 5 of them to a list.
+        public List<int> Dice_Roll_D6()
         {
-            Random dice = new Random();
+            Random rnd = new Random();
+            List<int> dicelist = new List<int>();
             //uses random class, to create a
-            int d6 = dice.Next(1,7);
-            return d6;
+            for (int i = 0; i < 5; i++)
+            {
+                dice = rnd.Next(1, 7);
+                dicelist.Add(dice);
+            }
+            return dicelist;
         }
 
     }
